@@ -16,6 +16,9 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
+  client.user.setActivity('his farm burn', {type: 'WATCHING'}).catch(err => {
+    console.error(err)
+  })
 })
 
 client.on('message', message => {
