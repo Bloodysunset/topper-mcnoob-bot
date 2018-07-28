@@ -1,6 +1,9 @@
 module.exports = {
   name: 'prune',
-  description: 'Prune X amount of messages.',
+  description: 'Prune X amount of messages, where X is between 1 and 100.',
+  aliases: ['delete', 'dd'],
+  usage: '10',
+  guildOnly: true,
   execute(message, args) {
     // amount + 1, because when you ask for a prune... Well, that's a +1.
     let amount = parseInt(args[0]) + 1;
@@ -14,8 +17,7 @@ module.exports = {
 
     message.channel.bulkDelete(amount, true).catch(err => {
       console.error(err);
-      message.channel.send(
-          `there was an error trying to prune messages in this channel!`);
+      message.channel.send(`there was an error trying to prune messages in this channel!`);
     });
   },
 };
