@@ -1,16 +1,5 @@
-const {prefix, default_cooldown} = require('../config.json'),
+const {prefix, default_cooldown, botAvatar, quotes} = require('../config.json'),
       Discord                    = require('discord.js');
-
-const botAvatar = 'https://cdn.discordapp.com/avatars/471635315166150666/ca14cf85c3f1673f38f7c8acd382b251.png',
-      quotes    = [
-        `Alms for the poor?`,
-        `Help a poor bloke out?`,
-        `Could ye spare some coin?`,
-        `Shine yer armor for a copper.`,
-        `I will gladly pay you on Tuesday for a hamburger today.`,
-        `Spare some change for a poor blind man? …What do you mean I'm not blind? …I'M NOT BLIND! I CAN SEE!! It's a miracle!`,
-        `It's all their fault, stupid Alliance army. Just had to build their towers right behind my farm.`,
-        `It's all their fault, stupid orcs. Had to burn my farm to the ground.`];
 
 module.exports = {
   name: 'help',

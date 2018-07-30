@@ -39,7 +39,7 @@ client.on('message', message => {
 
   // Handle the guild-only commands that are called in a DM
   if (command.guildOnly && message.channel.type !== 'text') {
-    return message.reply('I can\'t execute that command inside DMs!');
+    return message.reply(`I can't execute that command inside DMs!`);
   }
 
   // Handle the case where command needs args, but none were given
