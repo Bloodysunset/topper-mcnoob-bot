@@ -1,4 +1,4 @@
-const Tags = require('../sequelize/models/Tags').Tags;
+const Tags = require('../models/Tags');
 
 module.exports = {
   name: 'addtag',

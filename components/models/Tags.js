@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize'),
-      sequelize = require('../../index.js').sequelize;
+      sequelize = require('../../core/database/Sequelize');
+
 /*
  * equivalent to: CREATE TABLE tags(
  * name VARCHAR(255),
@@ -8,7 +9,8 @@ const Sequelize = require('sequelize'),
  * usage INT
  * );
  */
-exports.Tags = sequelize.define('tags', {
+
+const sequelizeInstance = sequelize.define('tags', {
   name: {
     type: Sequelize.STRING,
     unique: true,
@@ -21,3 +23,5 @@ exports.Tags = sequelize.define('tags', {
     allowNull: false,
   },
 });
+
+module.exports = sequelizeInstance;
