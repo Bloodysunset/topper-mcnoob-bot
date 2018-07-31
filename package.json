@@ -4,11 +4,20 @@
   "description": "Shine yer armor for a copper.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "TheSleepyPeon",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.2"
+    "discord.js": "^11.3.2",
+    "module-alias": "^2.1.0",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.27.24"
+  },
+  "_moduleAliases": {
+    "@core": "./core",
+    "@components": "./components"
   }
 }

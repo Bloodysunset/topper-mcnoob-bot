@@ -1,4 +1,4 @@
-const {prefix, default_cooldown, botAvatar, quotes} = require('../config.json'),
+const {prefix, default_cooldown, botAvatar, quotes} = require('../../config.json'),
       Discord                    = require('discord.js');
 
 module.exports = {

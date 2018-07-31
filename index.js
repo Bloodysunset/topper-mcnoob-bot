@@ -1,24 +1,22 @@
-const fs                                = require('fs'),
-      {prefix, token, default_cooldown} = require('./config.json'),
+require('module-alias/register');
+
+const {prefix, token, default_cooldown} = require('./config.json'),
       Discord                           = require('discord.js'),
+      CommandLoader                     = require('./core/commands/CommandLoader'),
       client                            = new Discord.Client(),
       cooldowns                         = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./commands')
-    .filter(file => file.endsWith('.js'));
-
-client.commands = new Discord.Collection();
-
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
+new CommandLoader(client);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity('his farm burn', {type: 'WATCHING'}).catch(err => {
     console.error(err);
   });
+
+  // Syncing DB with models
+  const Tags = require('./components/models/Tags');
+  Tags.sync({force: true});
 });
 
 client.on('message', message => {
