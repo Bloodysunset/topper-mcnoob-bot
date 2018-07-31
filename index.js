@@ -2,10 +2,20 @@ const fs                                = require('fs'),
       {prefix, token, default_cooldown} = require('./config.json'),
       Discord                           = require('discord.js'),
       client                            = new Discord.Client(),
-      cooldowns                         = new Discord.Collection();
+      cooldowns                         = new Discord.Collection(),
+      Sequelize                         = require('sequelize');
+
+exports.sequelize = new Sequelize('database', 'user', 'password', {
+  host: 'localhost',
+  dialect: 'sqlite',
+  logging: false,
+  operatorsAliases: false,
+  // SQLite only
+  storage: 'database.sqlite',
+});
 
 const commandFiles = fs.readdirSync('./commands')
-    .filter(file => file.endsWith('.js'));
+                       .filter(file => file.endsWith('.js'));
 
 client.commands = new Discord.Collection();
 
@@ -19,6 +29,10 @@ client.on('ready', () => {
   client.user.setActivity('his farm burn', {type: 'WATCHING'}).catch(err => {
     console.error(err);
   });
+
+  // Syncing DB with models
+  const Tags = require('./sequelize/models/Tags').Tags;
+  Tags.sync({ force: true });
 });
 
 client.on('message', message => {
@@ -31,8 +45,8 @@ client.on('message', message => {
         commandName = args.shift().toLowerCase();
 
   const command = client.commands.get(commandName)
-      || client.commands.find(
-          cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    || client.commands.find(
+      cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
   // If the command doesn't exist
   if (!command) return;
@@ -72,7 +86,7 @@ client.on('message', message => {
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
       return message.reply(`please wait ${timeLeft.toFixed(
-          1)} more second(s) before reusing the \`${command.name}\` command.`);
+        1)} more second(s) before reusing the \`${command.name}\` command.`);
     }
 
     timestamps.set(message.author.id, now);
